@@ -65,44 +65,45 @@ public class MainActivity extends AppCompatActivity {
 
         searchBtn.setOnClickListener(view -> {
 
-            if (searchBox.getText().toString().isEmpty()){
-                Toast.makeText(getApplicationContext(),"Search box is empty.",Toast.LENGTH_SHORT).show();
-            }
-            tags = searchBox.getText().toString();
-            if (isNetworkConnected()){
-                shimmerFrameLayout.startShimmer();
-                shimmerFrameLayout.setVisibility(View.VISIBLE);
+            if (searchBox.getText().toString().isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Search box is empty.", Toast.LENGTH_SHORT).show();
                 recyclerView.setVisibility(View.GONE);
-                retrieveData();
+                shimmerFrameLayout.setVisibility(View.GONE);
+            } else {
+                tags = searchBox.getText().toString();
+                if (isNetworkConnected()) {
+                    shimmerFrameLayout.startShimmer();
+                    shimmerFrameLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    retrieveData();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Check your connection", Toast.LENGTH_SHORT).show();
+                }
             }
-            else {
-                Toast.makeText(getApplicationContext(),"Check your connection",Toast.LENGTH_SHORT).show();
-            }
+
         });
 
         next.setOnClickListener(view -> {
-            if (isNetworkConnected()){
+            if (isNetworkConnected()) {
                 shimmerFrameLayout.startShimmer();
                 shimmerFrameLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
                 page++;
                 retrieveData();
-            }
-            else {
-                Toast.makeText(getApplicationContext(),"Check your connection",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Check your connection", Toast.LENGTH_SHORT).show();
             }
         });
 
         prev.setOnClickListener(view -> {
-            if (isNetworkConnected()){
+            if (isNetworkConnected()) {
                 shimmerFrameLayout.startShimmer();
                 shimmerFrameLayout.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
                 page--;
                 retrieveData();
-            }
-            else {
-                Toast.makeText(getApplicationContext(),"Check your connection",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Check your connection", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -207,4 +208,5 @@ public class MainActivity extends AppCompatActivity {
 
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
+
 }
